@@ -4,10 +4,14 @@ Basic API tests to verify HRV calculations and readiness scoring.
 Run after starting the server with: python run_server.py
 """
 import requests
+import urllib3
 import numpy as np
 from datetime import datetime
 
-BASE_URL = "http://localhost:4777/api"
+# Disable SSL warnings for self-signed certificate
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+BASE_URL = "https://localhost:4777/api"
 
 def generate_sample_rr_intervals(mean_hr=70, rmssd=50, num_intervals=300):
     """
@@ -49,7 +53,7 @@ def test_create_user():
         "bmi": 22.5
     }
 
-    response = requests.post(f"{BASE_URL}/users/", json=user_data)
+    response = requests.post(f"{BASE_URL}/users/", json=user_data, verify=False)
     print(f"Status: {response.status_code}")
 
     if response.status_code in [200, 201]:
@@ -74,7 +78,7 @@ def test_submit_hrv_reading(user_id):
         "sleep_quality": 65.0
     }
 
-    response = requests.post(f"{BASE_URL}/hrv/{user_id}/readings", json=hrv_data)
+    response = requests.post(f"{BASE_URL}/hrv/{user_id}/readings", json=hrv_data, verify=False)
     print(f"Status: {response.status_code}")
 
     if response.status_code in [200, 201]:
@@ -112,14 +116,14 @@ def test_build_baseline(user_id):
             "sleep_quality": 60.0 + np.random.normal(0, 10)
         }
 
-        response = requests.post(f"{BASE_URL}/hrv/{user_id}/readings", json=hrv_data)
+        response = requests.post(f"{BASE_URL}/hrv/{user_id}/readings", json=hrv_data, verify=False)
         if response.status_code in [200, 201]:
             reading_ids.append(response.json()['id'])
 
     print(f"Created {len(reading_ids)} readings")
 
     # Calculate baseline
-    response = requests.post(f"{BASE_URL}/readiness/{user_id}/baseline")
+    response = requests.post(f"{BASE_URL}/readiness/{user_id}/baseline", verify=False)
     print(f"Baseline Status: {response.status_code}")
 
     if response.status_code in [200, 201]:
@@ -137,7 +141,7 @@ def test_calculate_readiness(user_id, reading_id):
     """Test calculating readiness score"""
     print("\n=== Test 4: Calculate Readiness Score ===")
 
-    response = requests.post(f"{BASE_URL}/readiness/{user_id}/readiness/{reading_id}")
+    response = requests.post(f"{BASE_URL}/readiness/{user_id}/readiness/{reading_id}", verify=False)
     print(f"Status: {response.status_code}")
 
     if response.status_code in [200, 201]:
@@ -158,7 +162,7 @@ def test_get_trend(user_id):
     """Test getting readiness trend"""
     print("\n=== Test 5: Get 7-Day Readiness Trend ===")
 
-    response = requests.get(f"{BASE_URL}/readiness/{user_id}/readiness/trend/7")
+    response = requests.get(f"{BASE_URL}/readiness/{user_id}/readiness/trend/7", verify=False)
     print(f"Status: {response.status_code}")
 
     if response.status_code == 200:

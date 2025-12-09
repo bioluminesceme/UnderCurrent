@@ -1,17 +1,33 @@
 # UnderCurrent
 
-A research-backed energy budget monitoring system for ME/CFS (Myalgic Encephalomyelitis/Chronic Fatigue Syndrome) management.
+An experimental energy monitoring tool for personal ME/CFS management.
+
+## ⚠️ IMPORTANT DISCLAIMERS
+
+**This software is in early development and NOT production-ready:**
+- Under active development with frequent breaking changes
+- Not suitable for clinical use or medical decision-making
+- Self-hosted only - no cloud version available or planned
+- Use entirely at your own risk
+
+**Medical Disclaimer:**
+- This is NOT a medical device
+- Do not use for diagnosis or treatment decisions
+- Always consult healthcare professionals for medical advice
+- The developers assume no liability for any health outcomes
 
 ## Overview
 
-UnderCurrent calculates HRV/RHR metrics and energy budget scores based on peer-reviewed research specific to ME/CFS patients, helping users track their recovery status and manage Post-Exertional Malaise (PEM) risk.
+UnderCurrent is an experimental tool that calculates HRV/RHR metrics and energy budget scores. While informed by research on ME/CFS, this is a personal monitoring project, not a validated medical tool.
 
-## Research Foundation
+## Research Background
 
-Based on validated studies:
-- **Burton et al. (2010)**: HRV predicts sleep quality in CFS
-- **Boneva et al. (2007)**: Higher heart rate and reduced HRV persist during sleep in CFS
-- **Meeus et al. (2013)**: Systematic review of HRV in FM/CFS patients
+Implementation informed by published research:
+- Burton et al. (2010): HRV predicts sleep quality in CFS
+- Boneva et al. (2007): Higher heart rate and reduced HRV persist during sleep in CFS
+- Meeus et al. (2013): Systematic review of HRV in FM/CFS patients
+
+Note: While based on research, this implementation is experimental and unvalidated.
 
 ## Key Features
 
@@ -25,8 +41,8 @@ Based on validated studies:
 - Individual baseline calculation (not population averages)
 - Automatic baseline updates
 
-### 3. Readiness Score
-Research-weighted components:
+### 3. Energy Budget Score
+Experimental weighting of components:
 - 40% HRV (RMSSD + HF power)
 - 30% RHR (resting heart rate)
 - 20% Sleep quality
@@ -64,11 +80,13 @@ uv run python run_server.py
 python run_server.py
 ```
 
-The API will be available at `http://localhost:4777`
+The API will be available at `https://localhost:4777` (HTTPS with self-signed certificate)
 
 3. View API documentation:
-- Swagger UI: `http://localhost:4777/docs`
-- ReDoc: `http://localhost:4777/redoc`
+- Swagger UI: `https://localhost:4777/docs`
+- ReDoc: `https://localhost:4777/redoc`
+
+Note: Your browser will warn about the self-signed certificate - this is expected for local development.
 
 ## Testing
 
@@ -200,8 +218,28 @@ UnderCurrentAppPaxum/
 
 ## License
 
-Research and educational use.
+MIT License - Open Source
+
+Copyright (c) 2024 UnderCurrent Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## Contributing
 
-This is a prototype implementation based on peer-reviewed research. Contributions should reference published studies and maintain scientific rigor.
+This is an experimental implementation. Contributions are welcome, but remember this is not a validated medical tool. Please include references to research where applicable.

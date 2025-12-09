@@ -4,7 +4,9 @@
       "WebSearch",
       "Bash(cat:*)",
       "Bash(python research/download_articles.py:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(mkdir:*)",
+      "Bash(openssl req:*)"
     ],
     "deny": [],
     "ask": []

@@ -49,12 +49,14 @@ Use any square PNG image and place copies in:
 
 2. Update API base URL in Android app:
    - Open `android/app/src/main/kotlin/com/cfshrv/monitor/data/api/CfsHrvApiClient.kt`
-   - Change `baseUrl` from `http://10.0.2.2:4777/api` to `http://YOUR_IP:4777/api`
-   - Example: `http://192.168.1.100:4777/api`
+   - Change `baseUrl` from `https://10.0.2.2:4777/api` to `https://YOUR_IP:4777/api`
+   - Example: `https://192.168.1.100:4777/api`
 
 ### Option B: Using Android Emulator
-- Keep the default `http://10.0.2.2:4777/api`
+- Keep the default `https://10.0.2.2:4777/api`
 - `10.0.2.2` is the emulator's special alias for host machine's localhost
+
+**Note:** The app uses HTTPS with a self-signed certificate. The Android client is configured to accept this for local development.
 
 ## Step 5: Install Health Connect
 On your phone (not emulator):
@@ -109,7 +111,7 @@ Run: Tools → Kotlin → Configure Kotlin Plugin Updates
 
 ### Connection to backend fails
 - Check your phone is on same WiFi as computer
-- Verify backend is running: http://YOUR_IP:4777/docs
+- Verify backend is running: https://YOUR_IP:4777/docs (accept self-signed certificate warning)
 - Check firewall isn't blocking port 4777
 - For Windows: Allow Python through Windows Firewall
 

@@ -60,33 +60,29 @@ When you self-host UnderCurrent, **you are in complete control** of your data. T
 
 - ✅ **You** - full access
 - ❌ **UnderCurrent developers** - we have NO access
-- ❌ **Third parties** - no third parties involved
-- ❌ **Hackers** - only if they have physical access to your computer
+- ❌ **Third parties** - no third parties involved 
 
 ## 5. Data Security (Self-Hosted)
 
 **Your Responsibility:**
-- Keep your computer secure
-- Use a strong password
-- Enable full-disk encryption (recommended)
 - Keep your local network secure (use WPA3 Wi-Fi)
 
 **Built-in Security:**
 - ✅ Passwords hashed with bcrypt
 - ✅ No plain-text password storage
 - ✅ No third-party analytics SDKs
-- ✅ Open-source code (auditable)
+- ✅ Open-source code  
 
 **Network Security:**
-- ⚠️ Currently uses HTTP over local network (cleartext)
+- ✅  Uses HTTPS over local network (cleartext)
 - ✅ Local network only (not exposed to internet)
-- 💡 **Recommended:** Set up HTTPS using a reverse proxy if you want extra security
+
 
 ## 6. Data Retention (Self-Hosted)
 
 - **Retention period:** Forever, until you delete it
 - **Your control:** You can delete the database file anytime
-- **Backups:** Your responsibility
+- **Backups:** Your responsibility, we do not have access.
 
 ## 7. Third-Party Integrations
 
@@ -96,9 +92,9 @@ When you self-host UnderCurrent, **you are in complete control** of your data. T
 - **Privacy:** See [Google Health Connect Privacy Policy](https://policies.google.com/privacy)
 - **Your control:** Revoke permissions anytime in Health Connect settings
 
-### Garmin Health API (Future)
+### Garmin Health API (Future I've applied for developer access)
 - **Purpose:** Access HRV data directly from Garmin servers
-- **Data flow:** Garmin servers → UnderCurrent app → Your local server
+- **Data flow:** Garmin servers → UnderCurrent app → Your local server so your app can read it.
 - **Privacy:** See [Garmin Privacy Policy](https://www.garmin.com/privacy/)
 - **Your control:** OAuth - you authorize what data Garmin shares
 
@@ -342,16 +338,16 @@ We will notify you of changes:
 
 ## Summary Table
 
-| Feature | Self-Hosted (Now) | Cloud-Hosted (Future) |
-|---------|-------------------|----------------------|
-| **Data Location** | Your computer | Our servers |
-| **We Can See Your Data** | ❌ No | ⚠️ Encrypted, admin access for maintenance only |
-| **Internet Required** | ❌ Local network only | ✅ Yes |
-| **Free** | ✅ Yes | ✅ Yes |
-| **Your Responsibility** | Server security, backups | Just use the app |
-| **Data Encryption** | Optional (recommend full-disk) | ✅ Always (TLS + AES-256) |
-| **Data Retention** | Forever (you control) | Until account deletion or 3 years inactive |
-| **GDPR Compliant** | ✅ You control your data | ✅ Yes |
+| Feature                  | Self-Hosted (Now)              | Cloud-Hosted (Future)                          |
+| ------------------------ | ------------------------------ | ---------------------------------------------- |
+| **Data Location**        | Your computer                  | Our servers                                    |
+| **We Can See Your Data** | ❌ No                           | ⚠️ Encrypted, admin access for maintenance only |
+| **Internet Required**    | ❌ Local network only           | ✅ Yes                                          |
+| **Free**                 | ✅ Yes                          | ✅ Yes                                          |
+| **Your Responsibility**  | Server security, backups       | Just use the app                               |
+| **Data Encryption**      | Optional (recommend full-disk) | ✅ Always (TLS + AES-256)                       |
+| **Data Retention**       | Forever (you control)          | Until account deletion or 3 years inactive     |
+| **GDPR Compliant**       | ✅ You control your data        | ✅ Yes                                          |
 
 ---
 

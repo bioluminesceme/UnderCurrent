@@ -6,7 +6,7 @@ package com.cfshrv.monitor
  * IMPORTANT: BuildConfig.kt is git-ignored, so your IP won't be committed
  */
 object BuildConfig {
-    // For Android Emulator, use: "http://10.0.2.2:4777/api"
-    // For physical device on same WiFi, use: "http://YOUR_COMPUTER_IP:4777/api"
-    const val API_BASE_URL = "http://10.0.2.2:4777/api"
+    // For Android Emulator, use: "https://10.0.2.2:4777/api"
+    // For physical device on same WiFi, use: "https://YOUR_COMPUTER_IP:4777/api"
+    const val API_BASE_URL = "https://10.0.2.2:4777/api"
 }

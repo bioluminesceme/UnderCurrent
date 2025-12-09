@@ -15,11 +15,11 @@ import kotlinx.serialization.json.Json
 
 /**
  * API client for CFS-HRV Monitor backend.
- * Communicates with FastAPI backend running on port 4777.
+ * Communicates with FastAPI backend running on port 4777 over HTTPS.
  */
 class CfsHrvApiClient(
-    private val baseUrl: String = "http://10.0.2.2:4777/api" // Android emulator localhost
-    // For physical device on same network, change to: http://YOUR_COMPUTER_IP:4777/api
+    private val baseUrl: String = "https://10.0.2.2:4777/api" // Android emulator localhost
+    // For physical device on same network, change to: https://YOUR_COMPUTER_IP:4777/api
 ) {
     companion object {
         private const val TAG = "CfsHrvApiClient"
@@ -50,6 +50,28 @@ class CfsHrvApiClient(
 
         defaultRequest {
             contentType(ContentType.Application.Json)
+        }
+
+        engine {
+            // Accept self-signed certificates for local development
+            // IMPORTANT: Only use this for development with your own server
+            config {
+                sslSocketFactory(TrustAllCerts.sslContext.socketFactory, TrustAllCerts.trustManager)
+                hostnameVerifier { _, _ -> true }
+            }
+        }
+    }
+
+    // Trust manager for self-signed certificates (development only)
+    private object TrustAllCerts {
+        val trustManager = object : javax.net.ssl.X509TrustManager {
+            override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {}
+            override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {}
+            override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> = arrayOf()
+        }
+
+        val sslContext = javax.net.ssl.SSLContext.getInstance("TLS").apply {
+            init(null, arrayOf(trustManager), java.security.SecureRandom())
         }
     }
 

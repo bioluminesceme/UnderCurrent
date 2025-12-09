@@ -1,12 +1,17 @@
 """Create a demo user for testing"""
 import requests
+import urllib3
+
+# Disable SSL warnings for self-signed certificate
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 response = requests.post(
-    "http://localhost:4777/api/users/",
+    "https://localhost:4777/api/users/",
     json={
         "email": "demo@example.com",
         "password": "demo123"
-    }
+    },
+    verify=False
 )
 
 print(f"Status: {response.status_code}")

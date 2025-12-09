@@ -113,8 +113,8 @@ android/app/src/main/kotlin/com/cfshrv/monitor/data/api/CfsHrvApiClient.kt
 
 Change line ~20:
 ```kotlin
-private val baseUrl: String = "http://YOUR_IP_HERE:4777/api"
-// Example: "http://192.168.1.100:4777/api"
+private val baseUrl: String = "https://YOUR_IP_HERE:4777/api"
+// Example: "https://192.168.1.100:4777/api"
 ```
 
 **Important:** Use your actual IP, not `localhost` or `127.0.0.1`!
@@ -169,12 +169,12 @@ private val baseUrl: String = "http://YOUR_IP_HERE:4777/api"
 ```bash
 # In your computer terminal:
 uv run python run_server.py
-# Should show: "Uvicorn running on http://0.0.0.0:4777"
+# Should show: "Uvicorn running on https://0.0.0.0:4777"
 ```
 
 **Check 2:** Can you reach it from phone's browser?
 - Open Chrome on your phone
-- Visit: `http://YOUR_IP:4777/docs`
+- Visit: `https://YOUR_IP:4777/docs` (accept self-signed certificate warning)
 - Should show Swagger API docs
 
 **Check 3:** Are phone and computer on same WiFi?

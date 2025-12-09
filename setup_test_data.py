@@ -9,17 +9,21 @@ This script creates:
 Run this script before using the app for the first time.
 """
 import requests
+import urllib3
 import json
 from datetime import datetime, timedelta
 import random
 
-BASE_URL = "http://localhost:4777/api"
+# Disable SSL warnings for self-signed certificate
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+BASE_URL = "https://localhost:4777/api"
 USER_ID = 1
 
 def create_demo_user():
     """Create demo user if not exists"""
     print("Checking if demo user exists...")
-    response = requests.get(f"{BASE_URL}/users/{USER_ID}")
+    response = requests.get(f"{BASE_URL}/users/{USER_ID}", verify=False)
 
     if response.status_code == 404:
         print("Creating demo user...")
@@ -28,7 +32,8 @@ def create_demo_user():
             json={
                 "email": "demo@example.com",
                 "password": "demo123"
-            }
+            },
+            verify=False
         )
         if response.status_code == 201:
             print(f"[OK] Created user: {response.json()['email']}")
@@ -80,7 +85,8 @@ def create_hrv_readings():
                 "recorded_at": date.isoformat(),
                 "sleep_duration": sleep_hours,
                 "sleep_quality": sleep_quality
-            }
+            },
+            verify=False
         )
 
         if response.status_code == 201:
@@ -96,7 +102,7 @@ def calculate_baseline():
     """Calculate baseline from the readings"""
     print("\nCalculating baseline...")
 
-    response = requests.post(f"{BASE_URL}/energy-budget/{USER_ID}/baseline")
+    response = requests.post(f"{BASE_URL}/energy-budget/{USER_ID}/baseline", verify=False)
 
     if response.status_code == 200:
         baseline = response.json()
@@ -113,7 +119,7 @@ def calculate_energy_budget(reading_id):
     """Calculate energy budget for latest reading"""
     print(f"\nCalculating energy budget for reading {reading_id}...")
 
-    response = requests.post(f"{BASE_URL}/energy-budget/{USER_ID}/readiness/{reading_id}")
+    response = requests.post(f"{BASE_URL}/energy-budget/{USER_ID}/readiness/{reading_id}", verify=False)
 
     if response.status_code == 200:
         score = response.json()
