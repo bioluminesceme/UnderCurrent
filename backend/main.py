@@ -24,7 +24,7 @@ app.add_middleware(
 # Include routers
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(hrv.router, prefix="/api/hrv", tags=["hrv"])
-app.include_router(readiness.router, prefix="/api/readiness", tags=["readiness"])
+app.include_router(energy_budget.router, prefix="/api/energy-budget", tags=["energy-budget"])
 
 @app.get("/")
 async def root():
