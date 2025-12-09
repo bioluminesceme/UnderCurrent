@@ -23,8 +23,13 @@ An experimental energy monitoring tool for personal ME/CFS management.
 
 ## Overview
 
-UnderCurrent is an experimental tool that calculates HRV/RHR metrics and energy budget scores. 
+UnderCurrent is an experimental tool that calculates HRV/RHR metrics and energy budget scores.
 While informed by research on ME/CFS, this is a personal monitoring project, not a validated medical tool.
+
+**Architecture:**
+- **Self-hosted backend server** - Runs locally on your computer (Python/FastAPI)
+- **Android companion app** - Syncs data and displays trends
+- **Garmin Connect IQ watch app** - Displays your energy budget, PEM risk alerts, and activity recommendations directly on your Garmin watch
 
 ## Research Background
 
@@ -180,39 +185,44 @@ Based on readiness score and PEM risk:
 - **Reduced activity**: Readiness 30-50
 - **Rest**: Readiness <30 or high PEM risk
 
+## Documentation
+
+- **[Developer Setup Guide](docs/DEVELOPER_SETUP.md)** - Building from source
+- **[Android App Setup](docs/ANDROID_SETUP.md)** - Installing and configuring the app
+- **[Watch Sync Guide](docs/WATCH_SYNC_GUIDE.md)** - Connecting your Garmin watch
+- **[HTTPS Setup](docs/HTTPS_SETUP.md)** - SSL certificate configuration
+- **[Development Plan](docs/CLAUDE-ThePlan.md)** - Full roadmap and architecture
+
 ## Project Structure
 
 ```
-UnderCurrentAppPaxum/
-├── backend/
-│   ├── main.py              # FastAPI application
-│   ├── database.py          # Database configuration
-│   ├── models.py            # SQLAlchemy models
-│   ├── hrv_calculator.py    # HRV metric calculations
-│   ├── baseline_tracker.py  # Baseline tracking and z-scores
-│   ├── readiness_calculator.py  # Readiness score algorithm
-│   └── api/
-│       ├── users.py         # User endpoints
-│       ├── hrv.py           # HRV reading endpoints
-│       └── readiness.py     # Readiness/baseline endpoints
-├── research/
-│   ├── HRV_Formulas_and_Calculations.md  # Complete formula reference
-│   └── RESEARCH_SUMMARY.md                # Implementation guide
-├── requirements.txt
-├── run_server.py
-├── test_api.py
+UnderCurrent/
+├── backend/                 # Python FastAPI backend
+│   ├── api/                # API endpoints
+│   ├── models.py           # Database models
+│   ├── hrv_calculator.py   # HRV calculations
+│   └── energy_budget_calculator.py
+├── android/                 # Android app
+│   └── app/src/main/kotlin/
+├── docs/                    # Documentation
+│   ├── DEVELOPER_SETUP.md
+│   ├── ANDROID_SETUP.md
+│   └── WATCH_SYNC_GUIDE.md
+├── research/                # Research papers and formulas
+├── certs/                   # SSL certificates
+├── run_server.py           # Backend entry point
 └── README.md
 ```
 
 ## Future Enhancements (Phase 2+)
 
-- [ ] Garmin device integration (Starting with Vivoactive)
-- [ ] Frontend web/mobile app
-- [ ] Data visualization dashboard
+- [ ] Garmin Connect API integration (Starting with Vivoactive)
+- [ ] Garmin Connect IQ watch app development (data field or widget)
+- [ ] Enhanced Android app with data visualization dashboard
 - [ ] Activity tracking integration
 - [ ] PEM prediction model
 - [ ] Symptom logging ??
-- [ ] Loooooong solo user test.
+- [ ] Loooooong solo user test
 
 ## References
 

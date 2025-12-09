@@ -53,8 +53,9 @@ android/app/build/
 android/captures/
 android/.externalNativeBuild/
 
-# Configuration with local IP (don't commit!)
+# API Configuration (contains API keys - never commit!)
 android/app/src/main/kotlin/com/cfshrv/monitor/BuildConfig.kt
+android/app/src/main/kotlin/com/cfshrv/monitor/config/ApiConfig.kt
 
 # Research PDFs (optional - uncomment to exclude)
 # research/pdfs/
@@ -69,3 +70,7 @@ logs/
 
 # SSL Certificates (self-signed for local dev)
 certs/*.pem
+
+# Garmin API application (contains personal info)
+SentToGarminRequestDEVAPIKEY.md
+docs/GARMIN_API_STRATEGY.md

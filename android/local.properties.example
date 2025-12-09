@@ -1,0 +1,35 @@
+# UnderCurrent Android - Local Properties
+# Copy this file to local.properties and fill in your values
+# NEVER commit local.properties to git!
+
+# Android SDK location (automatically set by Android Studio)
+sdk.dir=C\:\\Users\\YourUsername\\AppData\\Local\\Android\\Sdk
+
+# ============================================================================
+# Garmin Connect API Credentials
+# ============================================================================
+# Get these from: https://developer.garmin.com/gc-developer-program/
+# These will be embedded in your APK build
+
+garmin.api.key=your_garmin_consumer_key_here
+garmin.api.secret=your_garmin_consumer_secret_here
+
+# ============================================================================
+# Backend Server Configuration
+# ============================================================================
+
+# For development (localhost)
+backend.url=https://localhost:4777/api
+
+# For physical device testing (replace with your computer's local IP)
+# backend.url=https://192.168.2.9:4777/api
+
+# ============================================================================
+# Build Configuration
+# ============================================================================
+
+# Keystore for release builds (Phase 2)
+# RELEASE_STORE_FILE=path/to/your/keystore.jks
+# RELEASE_STORE_PASSWORD=your_keystore_password
+# RELEASE_KEY_ALIAS=your_key_alias
+# RELEASE_KEY_PASSWORD=your_key_password

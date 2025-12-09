@@ -1,0 +1,32 @@
+package com.cfshrv.monitor.config
+
+/**
+ * API Configuration
+ *
+ * IMPORTANT: Copy this file to ApiConfig.kt (remove .example)
+ * Fill in your actual Garmin API credentials
+ * ApiConfig.kt is gitignored and will never be committed
+ *
+ * For end users: They don't need this file, just download the APK from releases
+ * For developers: Get your free Garmin API key from https://developer.garmin.com
+ */
+object ApiConfig {
+    /**
+     * Garmin Connect API Credentials
+     * Register at: https://developer.garmin.com/gc-developer-program/
+     */
+    const val GARMIN_CONSUMER_KEY = "YOUR_GARMIN_API_KEY_HERE"
+    const val GARMIN_CONSUMER_SECRET = "YOUR_GARMIN_API_SECRET_HERE"
+
+    /**
+     * Backend Server URL
+     * - Emulator: https://10.0.2.2:4777/api
+     * - Physical device: https://YOUR_COMPUTER_IP:4777/api (e.g., https://192.168.2.9:4777/api)
+     */
+    const val BACKEND_BASE_URL = "https://10.0.2.2:4777/api"
+
+    /**
+     * OAuth Callback URL (must match Garmin developer portal registration)
+     */
+    const val GARMIN_OAUTH_CALLBACK = "undercurrent://oauth/garmin"
+}
