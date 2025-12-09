@@ -255,4 +255,6 @@ This is an experimental implementation.
 Contributions and feature requests are welcome when I've got it somewhat working (so, not yet), but remember this is not a validated medical tool. 
 
 
-## I will add a donations button - 100% of donations with go to OMF.ngo
+## I will add a donations button when this actually works - 100% of donations with go to OMF.ngo
+
+Let's get some more research going!
