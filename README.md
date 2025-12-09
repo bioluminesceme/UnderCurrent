@@ -2,12 +2,16 @@
 
 An experimental energy monitoring tool for personal ME/CFS management.
 
+**Very much not yet functional, but I need to register for a dev key with Garmin to get API access to the HRV/bodybattery/sleep data before I can continue.**
+
+
+
 ## ⚠️ IMPORTANT DISCLAIMERS
 
 **This software is in early development and NOT production-ready:**
 - Under active development with frequent breaking changes
 - Not suitable for clinical use or medical decision-making
-- Self-hosted only - no cloud version available or planned
+- Self-hosted only for now
 - Use entirely at your own risk
 
 **Medical Disclaimer:**
@@ -15,14 +19,16 @@ An experimental energy monitoring tool for personal ME/CFS management.
 - Do not use for diagnosis or treatment decisions
 - Always consult healthcare professionals for medical advice
 - The developers assume no liability for any health outcomes
+- Etcetera
 
 ## Overview
 
-UnderCurrent is an experimental tool that calculates HRV/RHR metrics and energy budget scores. While informed by research on ME/CFS, this is a personal monitoring project, not a validated medical tool.
+UnderCurrent is an experimental tool that calculates HRV/RHR metrics and energy budget scores. 
+While informed by research on ME/CFS, this is a personal monitoring project, not a validated medical tool.
 
 ## Research Background
 
-Implementation informed by published research:
+Research info used:
 - Burton et al. (2010): HRV predicts sleep quality in CFS
 - Boneva et al. (2007): Higher heart rate and reduced HRV persist during sleep in CFS
 - Meeus et al. (2013): Systematic review of HRV in FM/CFS patients
@@ -39,7 +45,7 @@ Note: While based on research, this implementation is experimental and unvalidat
 ### 2. Baseline Tracking
 - 28-day rolling baseline with z-score normalization
 - Individual baseline calculation (not population averages)
-- Automatic baseline updates
+- Automatic baseline updates (recalculate available energy budget when you press a button)
 
 ### 3. Energy Budget Score
 Experimental weighting of components:
@@ -54,9 +60,10 @@ Monitors for warning signs:
 - Heart rate elevated >10% above baseline
 - RMSSD drop >25% from baseline
 
-## Installation
+## Installation (again this is very much not working yet!)
 
-### Requirements
+
+## Requirements
 - Python 3.8+
 - [uv](https://docs.astral.sh/uv/) (recommended) or pip
 
@@ -218,28 +225,37 @@ UnderCurrentAppPaxum/
 
 ## License
 
-MIT License - Open Source
+**GNU Affero General Public License v3.0 (AGPL-3.0)**
 
 Copyright (c) 2024 UnderCurrent Contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+### What This Means:
+- ✅ **Free to use** - Self-host for personal use forever
+- ✅ **Free to modify** - Fork and customize as you wish
+- ✅ **Free to distribute** - Share with others
+- ✅ **Can be used commercially** - But you must open-source all modifications
+- ⚠️ **Network use = distribution** - If you run this as a service, you must share your code
+- 💼 **Commercial licenses available** - Contact for proprietary/closed-source use
+
+The self-hosted version will always remain free and open source.
 
 ## Contributing
 
-This is an experimental implementation. Contributions are welcome, but remember this is not a validated medical tool. Please include references to research where applicable.
+This is an experimental implementation. 
+Contributions and feature requests are welcome when I've got it somewhat working/, but remember this is not a validated medical tool. 
+
+
+## I will add a donations button - all donations with go to OMF.
