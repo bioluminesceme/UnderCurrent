@@ -1,241 +1,360 @@
 # Privacy Policy for UnderCurrent
 
-**Last Updated:** December 9, 2024
+**Last Updated:** December 9, 2025
+
+---
+
+## IMPORTANT: Two Deployment Models
+
+UnderCurrent can be used in two ways. Please read the section that applies to you:
+
+### 📱 **Self-Hosted (Current Version)**
+You run your own server on your computer at home. Your data never leaves your local network.
+👉 **See: [Section A - Self-Hosted Privacy Policy](#section-a-self-hosted-privacy-policy)**
+
+### ☁️ **Cloud-Hosted (Maybe Future - VERY UNCERTAIN)**
+We *might* host a server someday. This is a big maybe. We're focusing on local-only for now.
+👉 **See: [Section B - Cloud-Hosted Privacy Policy](#section-b-cloud-hosted-privacy-policy)**
+
+---
+
+# Section A: Self-Hosted Privacy Policy
+
+**Current Version - This is how the app works TODAY**
 
 ## 1. Introduction
 
-UnderCurrent ("we", "our", or "the app") is committed to protecting your privacy and health data. This Privacy Policy explains how we collect, use, store, and protect your personal health information.
+When you self-host UnderCurrent, **you are in complete control** of your data. The app communicates with a server that **you run on your own computer** at home.
 
-**TL;DR:** Your health data stays on your device and your local server. We don't sell data. We don't track you. Your data is yours.
+**TL;DR:** Your health data stays on your device and your local server. We can't see it. You control it. It never goes to the internet.
 
-## 2. Data Controller
+## 2. What Data is Collected
 
-**Developer:** [Your Name/Organization]
-**Contact:** [Your Email]
-**Location:** [Your Location]
-
-For GDPR purposes, you (the user) are both the data controller and data subject when running your own local instance of UnderCurrent.
-
-## 3. What Data We Collect
-
-### 3.1 Health Data
+### 2.1 Health Data (Stored on YOUR server)
 - **Heart Rate Variability (HRV)** or **Resting Heart Rate (RHR)**
 - Sleep duration and quality scores
 - Heart rate measurements
 - Activity levels
 - Calculated metrics (z-scores, energy budget scores, PEM risk assessments)
 
-### 3.2 Account Data
-- Email address (for account identification only)
-- Hashed password (never stored in plain text)
+### 2.2 Account Data (Stored on YOUR server)
+- Email address (for login only)
+- Hashed password (bcrypt, never plain text)
 - Account creation timestamp
-- User preferences
 
-### 3.3 Technical Data
-- App version
-- Device type (Android version)
-- Error logs (only when crashes occur)
-
-### 3.4 Data We Do NOT Collect
+### 2.3 Data We Do NOT Collect
 - ❌ Location data
 - ❌ Contact lists
-- ❌ Photos or media
-- ❌ Browsing history
-- ❌ Any data from other apps
+- ❌ Analytics or tracking
 - ❌ Advertising identifiers
-- ❌ Analytics or tracking data
+- ❌ Any data sent to third-party servers
 
-## 4. How We Use Your Data
+## 3. Where is Your Data Stored?
 
-### 4.1 Primary Uses
-- Calculate your personalized 28-day baseline
-- Generate daily energy budget scores
-- Assess Post-Exertional Malaise (PEM) risk
-- Provide activity recommendations
-- Track trends over time
-- Help you manage ME/CFS symptoms
+**Location:** On your computer, in a SQLite database file
+**Path:** `F:\UnderCurrentAppPaxum\backend\undercurrent.db` (or wherever you installed it)
+**Network:** Local network only (127.0.0.1 or 192.168.x.x)
+**Internet:** Your data does NOT go to the internet
 
-### 4.2 Data Processing
-- All processing happens locally on your device and your local server
-- No data is sent to third-party servers
-- No data is used for advertising
-- No data is sold or shared with third parties
+## 4. Who Can Access Your Data?
 
-## 5. Data Storage and Security
+- ✅ **You** - full access
+- ❌ **UnderCurrent developers** - we have NO access
+- ❌ **Third parties** - no third parties involved
+- ❌ **Hackers** - only if they have physical access to your computer
 
-### 5.1 Local Storage
-- **Database:** SQLite database stored on your local server
-- **Location:** `F:\UnderCurrentAppPaxum\backend\undercurrent.db`
-- **Encryption:** Database at rest (recommended: enable full-disk encryption)
-- **Access:** Only accessible from your local network (127.0.0.1 or 192.168.x.x)
+## 5. Data Security (Self-Hosted)
 
-### 5.2 Security Measures
+**Your Responsibility:**
+- Keep your computer secure
+- Use a strong password
+- Enable full-disk encryption (recommended)
+- Keep your local network secure (use WPA3 Wi-Fi)
 
-#### Authentication
-- ✅ Passwords hashed using **bcrypt** (industry-standard)
+**Built-in Security:**
+- ✅ Passwords hashed with bcrypt
 - ✅ No plain-text password storage
-- ✅ Salted hashes (prevents rainbow table attacks)
-
-#### Network Security
-- ✅ Local network only (no internet exposure by default)
-- ✅ HTTPS recommended (not yet implemented - use reverse proxy)
-- ⚠️ Currently uses HTTP over local network (cleartext)
-
-#### Access Control
-- ✅ User authentication required for API access
-- ✅ Session management (future feature)
-- ✅ No cross-origin requests allowed (CORS configured for local only)
-
-#### Data Protection
-- ✅ No third-party analytics
-- ✅ No advertising SDKs
-- ✅ No telemetry or crash reporting to external servers
+- ✅ No third-party analytics SDKs
 - ✅ Open-source code (auditable)
 
-### 5.3 Data Retention
-- **Health data:** Retained indefinitely unless you delete it
-- **Account data:** Retained until you delete your account
-- **Backups:** Your responsibility (we recommend regular backups)
+**Network Security:**
+- ⚠️ Currently uses HTTP over local network (cleartext)
+- ✅ Local network only (not exposed to internet)
+- 💡 **Recommended:** Set up HTTPS using a reverse proxy if you want extra security
 
-### 5.4 Data Deletion
-You can delete your data at any time:
-1. **Delete specific readings:** Use the API to delete individual readings
-2. **Delete all data:** Stop the server and delete `undercurrent.db`
-3. **Uninstall app:** Removes all local app data from your phone
+## 6. Data Retention (Self-Hosted)
 
-## 6. Third-Party Integrations
+- **Retention period:** Forever, until you delete it
+- **Your control:** You can delete the database file anytime
+- **Backups:** Your responsibility
 
-### 6.1 Health Connect (Google)
+## 7. Third-Party Integrations
+
+### Health Connect (Google)
 - **Purpose:** Sync HRV/RHR and sleep data from your Garmin watch
-- **Data shared:** Heart rate, HRV, sleep duration/quality
+- **Data flow:** Garmin → Health Connect → UnderCurrent → Your local server
 - **Privacy:** See [Google Health Connect Privacy Policy](https://policies.google.com/privacy)
-- **Your control:** You can revoke permissions at any time in Health Connect settings
+- **Your control:** Revoke permissions anytime in Health Connect settings
 
-### 6.2 Garmin Health API (Future)
-- **Purpose:** Access HRV data directly from Garmin
-- **Data shared:** HRV, heart rate, sleep, stress, Body Battery
+### Garmin Health API (Future)
+- **Purpose:** Access HRV data directly from Garmin servers
+- **Data flow:** Garmin servers → UnderCurrent app → Your local server
 - **Privacy:** See [Garmin Privacy Policy](https://www.garmin.com/privacy/)
-- **Your control:** OAuth authorization - you control what data Garmin shares
-- **Revocation:** Revoke access anytime in Garmin Connect settings
+- **Your control:** OAuth - you authorize what data Garmin shares
 
-## 7. GDPR Compliance (EU Users)
+## 8. GDPR Rights (Self-Hosted)
 
-### 7.1 Legal Basis for Processing
-- **Consent:** You explicitly consent by creating an account and granting Health Connect permissions
-- **Legitimate Interest:** Managing your ME/CFS condition is a legitimate health interest
+Since you control your own data:
 
-### 7.2 Your Rights Under GDPR
-1. **Right to Access:** View all your data via the API (`GET /api/hrv/{user_id}/readings`)
-2. **Right to Rectification:** Correct inaccurate data (contact us or use API)
-3. **Right to Erasure (Right to be Forgotten):** Delete your account and all data
-4. **Right to Data Portability:** Export your data in JSON format via API
-5. **Right to Restrict Processing:** Stop calculations (pause the app)
-6. **Right to Object:** Object to specific processing (contact us)
-7. **Right to Withdraw Consent:** Revoke Health Connect permissions anytime
+1. **Right to Access:** You have full access via the API
+2. **Right to Erasure:** Delete the database file
+3. **Right to Portability:** Export data via API in JSON format
+4. **Right to Rectification:** Edit the database directly
+5. **Right to Restrict Processing:** Stop the server
 
-### 7.3 Data Portability
-Export your data:
-```bash
-# Export all HRV readings
-curl http://localhost:4777/api/hrv/1/readings?limit=1000 > my_hrv_data.json
+**No Data Protection Officer required** - you are your own DPO.
 
-# Export all energy budget scores
-curl http://localhost:4777/api/energy-budget/1/readiness?limit=1000 > my_scores.json
+---
 
-# Export baseline
-curl http://localhost:4777/api/energy-budget/1/baseline > my_baseline.json
-```
+# Section B: Cloud-Hosted Privacy Policy
 
-### 7.4 Data Protection Officer
-For small-scale operations (self-hosted), a DPO is not required. For questions, contact: [Your Email]
+**SPECULATIVE - VERY UNCERTAIN - FOCUS IS LOCAL-ONLY**
 
-## 8. Children's Privacy
+## 1. Introduction (Cloud-Hosted)
 
-UnderCurrent is not intended for use by children under 16. We do not knowingly collect data from children. If you are under 16, please do not use this app without parental consent.
+**This section describes how UnderCurrent MIGHT work IF we ever launch a cloud-hosted version.** This is purely speculative. We are currently focused on making the self-hosted version work well. A cloud version is a distant "maybe."
 
-## 9. International Data Transfers
+IF we ever build a cloud-hosted version, we will host the server so you can use the app from anywhere without running your own server.
 
-**For self-hosted instances:** Your data never leaves your local network. No international transfers occur.
+**TL;DR:** We will encrypt your data. We won't sell it. We won't look at it. You can delete it anytime. Free to use.
 
-**For cloud-hosted instances (future):** We will update this policy to specify data storage locations and safeguards (e.g., AWS region selection, Standard Contractual Clauses).
+## 2. What Data We Will Collect (Cloud-Hosted)
 
-## 10. Security Breach Notification
+Same health data as self-hosted version, but stored on our servers instead of yours.
 
-In the unlikely event of a data breach:
-- **Self-hosted:** You are responsible for securing your server
-- **Cloud-hosted (future):** We will notify affected users within 72 hours per GDPR requirements
+### 2.1 Health Data (Stored on OUR server)
+- Heart Rate Variability (HRV) / Resting Heart Rate (RHR)
+- Sleep duration and quality
+- Heart rate measurements
+- Activity levels
+- Calculated metrics
 
-## 11. Cookies and Tracking
+### 2.2 Account Data (Stored on OUR server)
+- Email address (for login and password reset)
+- Hashed password (bcrypt with unique salt per user)
+- Account creation and last login timestamp
+- User ID (anonymized UUID)
 
-**We do not use:**
-- ❌ Cookies (except session cookies if implemented)
-- ❌ Analytics tracking
-- ❌ Advertising trackers
-- ❌ Social media pixels
-- ❌ Fingerprinting
+### 2.3 Data We Will NOT Collect
+- ❌ Real name (unless you put it in your email)
+- ❌ Phone number
+- ❌ Location data
+- ❌ Payment information (free service)
+- ❌ Advertising identifiers
+- ❌ Analytics or tracking (except anonymous error reports)
 
-## 12. Research Use
+## 3. Where Will Your Data Be Stored? (Cloud-Hosted)
 
-**We do NOT use your data for research.** This app is for your personal health management only.
+**Hosting Provider:** [TBD - likely AWS, Google Cloud, or Hetzner]
+**Data Center Location:** [TBD - will be disclosed before launch]
+**Database:** PostgreSQL with encryption at rest
+**Backups:** Encrypted backups with unique encryption keys
 
-If we ever want to conduct research, we will:
-1. Seek explicit opt-in consent
-2. Anonymize all data
-3. Submit to ethics board review
-4. Publish results openly
+## 4. How We Will Protect Your Data (Cloud-Hosted)
 
-## 13. Changes to This Policy
+### 4.1 Encryption
 
-We will notify you of any material changes:
-- Update the "Last Updated" date
-- Notify via app update notes
-- Email notification (if you provided email)
+**In Transit:**
+- ✅ TLS 1.3 encryption (HTTPS only)
+- ✅ Certificate pinning (prevents man-in-the-middle attacks)
+- ✅ No HTTP fallback
 
-## 14. Open Source Transparency
+**At Rest:**
+- ✅ Database encryption at rest (AES-256)
+- ✅ Each user's data encrypted with unique salt
+- ✅ Password hashes use bcrypt with per-user salt
+
+**Anonymization:**
+- ✅ User ID is a UUID (not sequential)
+- ✅ No IP address logging
+- ✅ No personally identifiable information required
+
+### 4.2 Access Control
+
+**Who Can Access Your Data:**
+- ✅ **You** - via app or API
+- ⚠️ **System administrators** - for maintenance only (see below)
+- ❌ **Other users** - cannot see your data
+- ❌ **Advertisers** - we have no advertising
+- ❌ **Third parties** - no data sharing
+
+**Admin Access Policy:**
+- Admins CAN access the database for maintenance
+- Admins CANNOT decrypt individual user data (encrypted at application level)
+- Admins are logged and monitored
+- All admin access requires 2FA
+
+### 4.3 Data Retention (Cloud-Hosted)
+
+**Active Users:**
+- Health data: Retained as long as your account is active
+- Account data: Retained as long as your account is active
+
+**Inactive Users:**
+- **After 2 years of inactivity:** We will email you a warning
+- **After 3 years of inactivity:** Account and data will be deleted
+
+**Deleted Accounts:**
+- All data deleted within 30 days
+- Backups purged after 90 days
+- No data retained after deletion
+
+**User-Initiated Deletion:**
+- ✅ Immediate deletion from production database
+- ✅ Backup purge within 90 days
+- ✅ Confirmation email sent
+
+## 5. Data Sharing (Cloud-Hosted)
+
+**We will NEVER:**
+- ❌ Sell your data
+- ❌ Share data with advertisers
+- ❌ Use data for marketing
+- ❌ Train AI models on your data (without explicit opt-in consent)
+
+**We MAY share anonymized, aggregated data:**
+- ✅ For medical research (only with your opt-in consent)
+- ✅ Anonymized and aggregated (no individual identification possible)
+- ✅ Published openly (e.g., "Average energy budget for 1000 ME/CFS patients")
+
+## 6. International Data Transfers (Cloud-Hosted)
+
+**EU Users:**
+- Data will be stored in EU data centers (GDPR compliant)
+- No transfers outside EU without Standard Contractual Clauses
+
+**Non-EU Users:**
+- Data will be stored in nearest regional data center
+- Transfers comply with local data protection laws
+
+## 7. GDPR Rights (Cloud-Hosted)
+
+You will have full GDPR rights:
+
+1. **Right to Access:** Export all your data in JSON format
+2. **Right to Rectification:** Edit or correct your data via app
+3. **Right to Erasure (Right to be Forgotten):** Delete account and all data
+4. **Right to Data Portability:** Download all data in machine-readable format
+5. **Right to Restrict Processing:** Temporarily pause calculations
+6. **Right to Object:** Object to specific data processing
+7. **Right to Withdraw Consent:** Revoke permissions anytime
+
+**Data Protection Officer:** [Email TBD]
+
+## 8. Security Breach Notification (Cloud-Hosted)
+
+In the event of a data breach:
+- We will notify affected users within **72 hours** (GDPR requirement)
+- We will notify relevant data protection authorities
+- We will provide details of the breach and mitigation steps
+- We will offer free credit monitoring if applicable
+
+## 9. Business Model (Cloud-Hosted)
+
+**Free Tier:**
+- ✅ Unlimited data storage
+- ✅ All features included
+- ✅ No ads, no tracking
+
+**How We Pay For It:**
+- Donations (optional)
+- Grants from ME/CFS organizations
+- Sponsorships (listed transparently, no data access)
+
+**We will NEVER:**
+- ❌ Charge for basic features
+- ❌ Sell premium plans that exploit chronically ill users
+- ❌ Monetize your health data
+
+## 10. Cloud-Hosted Roadmap
+
+**Current Priority:** Get self-hosted version working perfectly first.
+
+**Cloud-Hosted Status:** Distant maybe. Not planned for at least 12+ months. May never happen.
+
+**IF we ever do it, we will:**
+- ✅ Complete security audit by third party
+- ✅ Implement end-to-end encryption
+- ✅ Set up SOC 2 compliance
+- ✅ Get legal review by privacy lawyer
+- ✅ Publish transparency report
+- ✅ Update this privacy policy with concrete details
+
+**Current Focus:** Local-only, self-hosted, privacy-first.
+
+---
+
+# Universal Sections (Both Self-Hosted and Cloud-Hosted)
+
+## Children's Privacy
+
+UnderCurrent is not intended for children under 16. We do not knowingly collect data from children.
+
+## Medical Disclaimer
+
+**UnderCurrent is NOT a medical device.** Do not use it to diagnose or treat medical conditions. Always consult your doctor.
+
+## Warranty and Liability
+
+UnderCurrent is provided "as is" without warranty. We are not liable for:
+- Data loss (always backup your data!)
+- Incorrect calculations
+- Medical decisions based on app output
+- Security breaches (for self-hosted versions, you are responsible)
+
+## Open Source Transparency
 
 UnderCurrent is open source:
 - **Code:** https://github.com/bioluminesceme/UnderCurrent
 - **License:** [Your chosen license]
-- **Auditable:** Anyone can review the code to verify these privacy claims
+- **Auditable:** Anyone can review the code
 
-## 15. Contact Us
+## Changes to This Policy
 
-For privacy questions or concerns:
-- **Email:** [Your Email]
+We will notify you of changes:
+- Update "Last Updated" date
+- Notify via app update notes
+- Email notification (for cloud-hosted users)
+
+## Contact Us
+
+**For Privacy Questions:**
 - **GitHub Issues:** https://github.com/bioluminesceme/UnderCurrent/issues
+- **Email:** [Your Email TBD]
 
-## 16. Governing Law
+## Governing Law
 
-This Privacy Policy is governed by:
-- **GDPR** (if you're in the EU)
+- **GDPR** (EU users)
+- **CCPA** (California users, cloud-hosted only)
 - **HIPAA** does NOT apply (we are not a covered entity)
-- **Local laws** in your jurisdiction
-
-## 17. Medical Disclaimer
-
-**UnderCurrent is NOT a medical device.** It is a wellness tool for personal health tracking. Do not use it to diagnose or treat medical conditions. Always consult your doctor.
-
-## 18. Warranty and Liability
-
-UnderCurrent is provided "as is" without warranty. We are not liable for:
-- Data loss (backup your data!)
-- Incorrect calculations
-- Medical decisions based on app output
-- Server security (your responsibility for self-hosted instances)
 
 ---
 
-## Summary (Plain English)
+## Summary Table
 
-✅ **Your data stays local** - no cloud servers
-✅ **No tracking or ads** - we don't monetize your data
-✅ **Open source** - anyone can audit the code
-✅ **You control your data** - export or delete anytime
-✅ **GDPR compliant** - all rights respected
-✅ **Security first** - bcrypt passwords, local-only access
-
-**Questions?** Contact us at [Your Email]
+| Feature | Self-Hosted (Now) | Cloud-Hosted (Future) |
+|---------|-------------------|----------------------|
+| **Data Location** | Your computer | Our servers |
+| **We Can See Your Data** | ❌ No | ⚠️ Encrypted, admin access for maintenance only |
+| **Internet Required** | ❌ Local network only | ✅ Yes |
+| **Free** | ✅ Yes | ✅ Yes |
+| **Your Responsibility** | Server security, backups | Just use the app |
+| **Data Encryption** | Optional (recommend full-disk) | ✅ Always (TLS + AES-256) |
+| **Data Retention** | Forever (you control) | Until account deletion or 3 years inactive |
+| **GDPR Compliant** | ✅ You control your data | ✅ Yes |
 
 ---
 
 **By using UnderCurrent, you agree to this Privacy Policy.**
+
+**Questions? Open an issue on GitHub or contact us!**
