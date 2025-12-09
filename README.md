@@ -2,7 +2,7 @@
 
 An experimental energy monitoring tool for personal ME/CFS management.
 
-**Very much not yet functional, but I need to register for a dev key with Garmin to get API access to the HRV/bodybattery/sleep data before I can continue.**
+**Very much not yet functional, but I need to register for a dev key with Garmin to get API access to the HRV/bodybattery/sleep data before I can continue, and they want a website**
 
 
 
@@ -206,14 +206,13 @@ UnderCurrentAppPaxum/
 
 ## Future Enhancements (Phase 2+)
 
-- [ ] Garmin device integration
+- [ ] Garmin device integration (Starting with Vivoactive)
 - [ ] Frontend web/mobile app
 - [ ] Data visualization dashboard
-- [ ] Export reports (PDF/CSV)
-- [ ] Multi-user authentication (JWT)
 - [ ] Activity tracking integration
-- [ ] Symptom logging
 - [ ] PEM prediction model
+- [ ] Symptom logging ??
+- [ ] Loooooong solo user test.
 
 ## References
 
@@ -248,14 +247,12 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 - ✅ **Free to distribute** - Share with others
 - ✅ **Can be used commercially** - But you must open-source all modifications
 - ⚠️ **Network use = distribution** - If you run this as a service, you must share your code
-- 💼 **Commercial licenses available** - Contact for proprietary/closed-source use
-
-The self-hosted version will always remain free and open source.
+- 💼 **Commercial licenses** - Contact for proprietary/closed-source use, I might happily at some point sell out so someone else can deal with HIPAA, as long as the self-hosted version will always remain freely available and open source.
 
 ## Contributing
 
 This is an experimental implementation. 
-Contributions and feature requests are welcome when I've got it somewhat working/, but remember this is not a validated medical tool. 
+Contributions and feature requests are welcome when I've got it somewhat working (so, not yet), but remember this is not a validated medical tool. 
 
 
-## I will add a donations button - all donations with go to OMF.
+## I will add a donations button - 100% of donations with go to OMF.ngo
