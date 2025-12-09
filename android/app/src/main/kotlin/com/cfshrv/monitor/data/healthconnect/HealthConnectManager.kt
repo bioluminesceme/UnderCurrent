@@ -41,7 +41,33 @@ class HealthConnectManager(private val context: Context) {
      * Check if Health Connect is available on this device
      */
     suspend fun isAvailable(): Boolean {
-        return HealthConnectClient.getSdkStatus(context) == HealthConnectClient.SDK_AVAILABLE
+        return try {
+            val status = HealthConnectClient.getSdkStatus(context)
+            Log.d(TAG, "Health Connect SDK status: $status")
+            // Status codes:
+            // 1 = SDK_AVAILABLE
+            // 2 = SDK_UNAVAILABLE
+            // 3 = SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED
+
+            when (status) {
+                1 -> {
+                    Log.d(TAG, "Health Connect is available")
+                    true
+                }
+                3 -> {
+                    Log.w(TAG, "Health Connect needs update, but allowing access anyway")
+                    // Try to use it anyway - sometimes it still works
+                    true
+                }
+                else -> {
+                    Log.e(TAG, "Health Connect is not available")
+                    false
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking Health Connect availability", e)
+            false
+        }
     }
 
     /**

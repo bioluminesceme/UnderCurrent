@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.cfshrv.monitor"
-        minSdk = 26  // Health Connect requires Android 8.0+
+        minSdk = 28  // Health Connect requires Android 9.0+ (API 28)
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -64,7 +64,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
 
     // Health Connect
-    implementation("androidx.health.connect:connect-client:1.1.0-alpha07")
+    implementation("androidx.health.connect:connect-client:1.1.0-alpha08")
 
     // Networking - Ktor
     implementation("io.ktor:ktor-client-core:2.3.7")

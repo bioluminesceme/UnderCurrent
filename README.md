@@ -1,10 +1,10 @@
-# CFS-HRV Monitor
+# UnderCurrent
 
-A research-backed Heart Rate Variability monitoring system for ME/CFS (Myalgic Encephalomyelitis/Chronic Fatigue Syndrome) management.
+A research-backed energy budget monitoring system for ME/CFS (Myalgic Encephalomyelitis/Chronic Fatigue Syndrome) management.
 
 ## Overview
 
-This application calculates HRV metrics and readiness scores based on peer-reviewed research specific to ME/CFS patients, helping users track their recovery status and manage Post-Exertional Malaise (PEM) risk.
+UnderCurrent calculates HRV/RHR metrics and energy budget scores based on peer-reviewed research specific to ME/CFS patients, helping users track their recovery status and manage Post-Exertional Malaise (PEM) risk.
 
 ## Research Foundation
 

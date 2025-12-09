@@ -39,6 +39,50 @@ class HrvRepository(
     }
 
     /**
+     * Sync with synthetic demo data (for testing without Health Connect)
+     */
+    suspend fun syncWithDemoData(userId: Int): Result<EnergyBudgetResponse> {
+        return try {
+            Log.d(TAG, "Syncing with demo data...")
+
+            // Generate realistic demo RR intervals
+            val syntheticRRIntervals = generateSyntheticRRIntervals(
+                meanHr = 65.0,  // 65 bpm resting heart rate
+                rmssd = 45.0,   // 45ms RMSSD (healthy range)
+                count = 300
+            )
+
+            // Submit to backend
+            val request = RRIntervalsRequest(
+                rrIntervals = syntheticRRIntervals,
+                recordedAt = java.time.Instant.now().toString(),
+                sleepDuration = 7.5,  // 7.5 hours of sleep
+                sleepQuality = 85.0   // 85% sleep quality
+            )
+
+            Log.d(TAG, "Submitting demo HRV reading...")
+            val readingResult = apiClient.submitHrvReading(userId, request)
+            if (readingResult.isFailure) {
+                Log.e(TAG, "Failed to submit reading", readingResult.exceptionOrNull())
+                return Result.failure(readingResult.exceptionOrNull()!!)
+            }
+
+            val reading = readingResult.getOrThrow()
+            Log.d(TAG, "Reading submitted with ID: ${reading.id}")
+
+            // Calculate energy budget
+            Log.d(TAG, "Calculating energy budget...")
+            val result = apiClient.calculateEnergyBudget(userId, reading.id)
+            Log.d(TAG, "Energy budget result: ${result.isSuccess}")
+            result
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Error syncing demo data to backend", e)
+            Result.failure(e)
+        }
+    }
+
+    /**
      * Sync latest HRV data from Health Connect to backend
      *
      * Note: This is a simplified version that uses RMSSD directly.
@@ -46,9 +90,25 @@ class HrvRepository(
      */
     suspend fun syncLatestHrvToBackend(userId: Int): Result<EnergyBudgetResponse> {
         return try {
-            // Get latest HRV data from Health Connect
-            val hrvData = healthConnectManager.getLatestHrvData()
-                ?: return Result.failure(Exception("No HRV data available"))
+            Log.d(TAG, "Attempting to get HRV data from Health Connect...")
+
+            // Try to get latest HRV data from Health Connect
+            // This will fail if we don't have permissions, which is fine
+            val hrvData = try {
+                healthConnectManager.getLatestHrvData()
+            } catch (e: SecurityException) {
+                Log.e(TAG, "Security exception - no Health Connect permissions", e)
+                return Result.failure(Exception("No Health Connect permissions. Please grant permissions in Settings → Apps → Health Connect → App permissions → CFS-HRV Monitor"))
+            } catch (e: Exception) {
+                Log.e(TAG, "Error reading from Health Connect", e)
+                return Result.failure(Exception("Error reading Health Connect: ${e.message}"))
+            }
+
+            if (hrvData == null) {
+                return Result.failure(Exception("No HRV data available from Health Connect. Make sure your Garmin watch has synced recently."))
+            }
+
+            Log.d(TAG, "Got HRV data: RMSSD=${hrvData.rmssdMs}ms, HR=${hrvData.heartRateBpm}bpm")
 
             // For now, we'll create synthetic RR intervals from RMSSD
             // In a real implementation, you'd need actual RR intervals from the device
@@ -66,14 +126,17 @@ class HrvRepository(
                 sleepQuality = hrvData.sleepQualityScore
             )
 
+            Log.d(TAG, "Submitting HRV reading to backend...")
             val readingResult = apiClient.submitHrvReading(userId, request)
             if (readingResult.isFailure) {
                 return Result.failure(readingResult.exceptionOrNull()!!)
             }
 
             val reading = readingResult.getOrThrow()
+            Log.d(TAG, "Reading submitted with ID: ${reading.id}")
 
             // Calculate readiness score
+            Log.d(TAG, "Calculating energy budget...")
             apiClient.calculateEnergyBudget(userId, reading.id)
 
         } catch (e: Exception) {

@@ -4,10 +4,17 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from backend.database import get_db
 from backend.models import User
-from passlib.context import CryptContext
+import bcrypt
 
 router = APIRouter()
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def hash_password(password: str) -> str:
+    """Hash a password using bcrypt"""
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a password against a hash"""
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -26,6 +33,24 @@ class UserResponse(BaseModel):
 
     class Config:
         from_attributes = True
+        json_encoders = {
+            'datetime': lambda v: v.isoformat() if v else None
+        }
+
+    @classmethod
+    def model_validate(cls, obj):
+        """Custom validation to convert datetime to string"""
+        if hasattr(obj, 'created_at') and obj.created_at:
+            obj_dict = {
+                'id': obj.id,
+                'email': obj.email,
+                'age': obj.age,
+                'sex': obj.sex,
+                'bmi': obj.bmi,
+                'created_at': obj.created_at.isoformat()
+            }
+            return cls(**obj_dict)
+        return super().model_validate(obj)
 
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
@@ -39,7 +64,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
         )
 
     # Hash password
-    hashed_password = pwd_context.hash(user.password)
+    hashed_password = hash_password(user.password)
 
     # Create user
     db_user = User(
@@ -54,7 +79,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_user)
 
-    return db_user
+    return UserResponse.model_validate(db_user)
 
 @router.get("/{user_id}", response_model=UserResponse)
 def get_user(user_id: int, db: Session = Depends(get_db)):
@@ -65,4 +90,4 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found"
         )
-    return user
+    return UserResponse.model_validate(user)

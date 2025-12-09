@@ -53,6 +53,9 @@ android/app/build/
 android/captures/
 android/.externalNativeBuild/
 
+# Configuration with local IP (don't commit!)
+android/app/src/main/kotlin/com/cfshrv/monitor/BuildConfig.kt
+
 # Research PDFs (optional - uncomment to exclude)
 # research/pdfs/
 

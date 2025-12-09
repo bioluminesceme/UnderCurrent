@@ -122,12 +122,15 @@ class BaselineTracker:
             Baseline.is_active == True
         ).update({'is_active': False})
 
+        # Remove fields that aren't in the Baseline model
+        baseline_fields = {k: v for k, v in baseline_data.items() if k != 'readings_count'}
+
         # Create new baseline
         baseline = Baseline(
             user_id=user_id,
             calculated_at=datetime.utcnow(),
             is_active=True,
-            **baseline_data
+            **baseline_fields
         )
 
         db.add(baseline)

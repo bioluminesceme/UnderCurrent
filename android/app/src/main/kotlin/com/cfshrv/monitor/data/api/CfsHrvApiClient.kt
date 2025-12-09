@@ -18,7 +18,8 @@ import kotlinx.serialization.json.Json
  * Communicates with FastAPI backend running on port 4777.
  */
 class CfsHrvApiClient(
-    private val baseUrl: String = "http://192.168.2.9:4777/api" // Local network IP
+    private val baseUrl: String = "http://10.0.2.2:4777/api" // Android emulator localhost
+    // For physical device on same network, change to: http://YOUR_COMPUTER_IP:4777/api
 ) {
     companion object {
         private const val TAG = "CfsHrvApiClient"
@@ -150,8 +151,21 @@ class CfsHrvApiClient(
         readingId: Int
     ): Result<EnergyBudgetResponse> {
         return try {
-            val response = client.post("$baseUrl/energy-budget/$userId/energy-budget/$readingId")
-            Result.success(response.body())
+            val response = client.post("$baseUrl/energy-budget/$userId/readiness/$readingId")
+
+            // Check if response is success
+            if (response.status.value in 200..299) {
+                Result.success(response.body())
+            } else {
+                // Try to get error message from response
+                val errorBody = try {
+                    response.body<String>()
+                } catch (e: Exception) {
+                    "HTTP ${response.status.value}"
+                }
+                Log.e(TAG, "Error calculating energy budget: $errorBody")
+                Result.failure(Exception(errorBody))
+            }
         } catch (e: Exception) {
             Log.e(TAG, "Error calculating readiness score", e)
             Result.failure(e)

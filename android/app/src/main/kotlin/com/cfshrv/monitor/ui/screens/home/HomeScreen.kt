@@ -1,5 +1,7 @@
 package com.cfshrv.monitor.ui.screens.home
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,18 +12,45 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.health.connect.client.HealthConnectClient
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel(
+        factory = HomeViewModelFactory(LocalContext.current.applicationContext as android.app.Application)
+    )
+) {
+    val context = LocalContext.current
     var selectedTab by remember { mutableStateOf(0) }
+    val uiState by viewModel.uiState.collectAsState()
+
+    // Health Connect permission launcher
+    val permissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+        contract = androidx.health.connect.client.PermissionController.createRequestPermissionResultContract()
+    ) { granted ->
+        android.util.Log.d("HomeScreen", "Permissions result: $granted")
+        android.util.Log.d("HomeScreen", "Granted permissions count: ${granted.size}")
+        granted.forEach { permission ->
+            android.util.Log.d("HomeScreen", "Granted: $permission")
+        }
+        // Refresh Health Connect status after permissions are granted
+        viewModel.checkHealthConnect()
+
+        // If permissions were granted, try syncing
+        if (granted.isNotEmpty()) {
+            viewModel.syncData()
+        }
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("CFS-HRV Monitor") },
+                title = { Text("UnderCurrent") },
                 actions = {
                     IconButton(onClick = { /* Settings */ }) {
                         Icon(Icons.Default.Settings, "Settings")
@@ -61,31 +90,78 @@ fun HomeScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             when (selectedTab) {
-                0 -> TodayTab()
+                0 -> TodayTab(uiState)
                 1 -> TrendsTab()
-                2 -> SyncTab()
+                2 -> SyncTab(
+                    isSyncing = uiState.isSyncing,
+                    lastSyncTime = uiState.lastSyncTime,
+                    error = uiState.error,
+                    healthConnectAvailable = uiState.healthConnectAvailable,
+                    onSyncClick = { viewModel.syncData() },
+                    onTestSync = { viewModel.testSyncWithDemoData() },
+                    onRequestPermissions = {
+                        android.util.Log.d("HomeScreen", "Permission button clicked")
+                        // Always try to request permissions directly
+                        // If HC is not installed, this will fail gracefully
+                        try {
+                            android.util.Log.d("HomeScreen", "Launching permission request")
+                            permissionLauncher.launch(
+                                com.cfshrv.monitor.data.healthconnect.HealthConnectManager.PERMISSIONS
+                            )
+                        } catch (e: Exception) {
+                            android.util.Log.e("HomeScreen", "Permission request failed", e)
+                            // If permission request fails, open Play Store
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                data = Uri.parse("market://details?id=com.google.android.apps.healthdata")
+                            }
+                            try {
+                                context.startActivity(intent)
+                            } catch (ex: Exception) {
+                                android.util.Log.e("HomeScreen", "Failed to open Play Store", ex)
+                            }
+                        }
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-private fun TodayTab() {
-    // Mock data for demonstration
-    val readinessScore = 72.0
-    val hrvScore = 68.0
-    val rhrScore = 75.0
-    val sleepScore = 70.0
-    val stressScore = 80.0
-    val pemRisk = "low"
-    val recommendation = "normal"
+private fun TodayTab(uiState: HomeUiState) {
+    // Use real data if available, otherwise show demo data
+    val energyBudget = uiState.energyBudget
+    val readinessScore = energyBudget?.readinessScore ?: 72.0
+    val hrvScore = energyBudget?.hrvScore ?: 68.0
+    val rhrScore = energyBudget?.rhrScore ?: 75.0
+    val sleepScore = energyBudget?.sleepScore ?: 70.0
+    val stressScore = energyBudget?.stressScore ?: 80.0
+    val pemRisk = energyBudget?.pemRiskLevel ?: "low"
+    val recommendation = energyBudget?.activityRecommendation ?: "normal"
+
+    if (energyBudget == null && !uiState.isLoading) {
+        // Show message if no data yet
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    "No data yet - go to Sync tab to get started!",
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
 
     Text(
-        text = "Today's Readiness",
+        text = "Today's Energy Budget",
         style = MaterialTheme.typography.headlineMedium
     )
 
-    // Readiness Score Card
+    // Energy Budget Card
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -102,7 +178,7 @@ private fun TodayTab() {
                 color = Color.White
             )
             Text(
-                text = "Readiness Score",
+                text = "Energy Budget",
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.White
             )
@@ -189,8 +265,16 @@ private fun TrendsTab() {
 }
 
 @Composable
-private fun SyncTab() {
-    var syncing by remember { mutableStateOf(false) }
+private fun SyncTab(
+    isSyncing: Boolean,
+    lastSyncTime: String?,
+    error: String?,
+    healthConnectAvailable: Boolean,
+    onSyncClick: () -> Unit,
+    onTestSync: () -> Unit,
+    onRequestPermissions: () -> Unit
+) {
+    val context = LocalContext.current
 
     Text(
         text = "Sync Data",
@@ -206,7 +290,8 @@ private fun SyncTab() {
             Icon(
                 Icons.Default.Sync,
                 contentDescription = null,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(64.dp),
+                tint = if (isSyncing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
             )
 
             Text(
@@ -215,22 +300,155 @@ private fun SyncTab() {
                 textAlign = TextAlign.Center
             )
 
-            if (syncing) {
-                CircularProgressIndicator()
-                Text("Syncing...")
-            } else {
-                Button(
-                    onClick = { syncing = true },
+            // Permission request buttons
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Grant Health Connect permissions:",
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
+                )
+
+                // Primary button: Open Health Connect permissions for our app
+                Button(
+                    onClick = {
+                        android.util.Log.d("HomeScreen", "Opening Health Connect permissions...")
+                        try {
+                            // Try to open Health Connect permission screen directly
+                            val intent = Intent("androidx.health.ACTION_REQUEST_PERMISSIONS").apply {
+                                setPackage("com.google.android.apps.healthdata")
+                                putExtra("android.intent.extra.PACKAGE_NAME", context.packageName)
+                            }
+                            context.startActivity(intent)
+                        } catch (e: Exception) {
+                            android.util.Log.e("HomeScreen", "Failed to open HC permissions, trying launcher", e)
+                            // Fallback: just request permissions normally
+                            onRequestPermissions()
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    )
                 ) {
-                    Icon(Icons.Default.Refresh, contentDescription = null)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Sync Now")
+                    Text("Open Health Permissions")
+                }
+
+                // Secondary button: Open Health Connect app
+                Button(
+                    onClick = {
+                        android.util.Log.d("HomeScreen", "Opening Health Connect app directly")
+                        try {
+                            // Try to open Health Connect app directly
+                            val intent = context.packageManager.getLaunchIntentForPackage(
+                                "com.google.android.apps.healthdata"
+                            )
+                            if (intent != null) {
+                                context.startActivity(intent)
+                            } else {
+                                // Fallback: open Play Store
+                                val playIntent = Intent(Intent.ACTION_VIEW).apply {
+                                    data = Uri.parse("market://details?id=com.google.android.apps.healthdata")
+                                }
+                                context.startActivity(playIntent)
+                            }
+                        } catch (e: Exception) {
+                            android.util.Log.e("HomeScreen", "Failed to open Health Connect", e)
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondary
+                    )
+                ) {
+                    Text("Open Health Connect App")
+                }
+
+                Text(
+                    text = "If button doesn't work: Open Health Connect → App permissions → UnderCurrent → Allow all",
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+
+            if (error != null) {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "Error: $error",
+                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+
+                        if (error.contains("permissions", ignoreCase = true)) {
+                            Button(
+                                onClick = onRequestPermissions,
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.error
+                                )
+                            ) {
+                                Text("Grant Health Connect Permissions")
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (isSyncing) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
+                ) {
+                    Text(
+                        text = "Syncing...",
+                        modifier = Modifier.padding(16.dp),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = onSyncClick,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(Icons.Default.Refresh, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Sync Now (requires Health Connect)")
+                    }
+
+                    Button(
+                        onClick = onTestSync,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiary
+                        )
+                    ) {
+                        Text("Test Sync (Demo Data)")
+                    }
                 }
             }
 
             Text(
-                text = "Last sync: Never",
+                text = "Last sync: ${lastSyncTime ?: "Never"}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

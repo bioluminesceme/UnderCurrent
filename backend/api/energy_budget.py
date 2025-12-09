@@ -142,7 +142,7 @@ def calculate_energy_budget(
         )
 
     # Calculate readiness
-    readiness_data = energy_budget_calc.calculate_energy_budget(
+    readiness_data = energy_budget_calc.calculate_readiness(
         db, user_id, reading, baseline
     )
 
