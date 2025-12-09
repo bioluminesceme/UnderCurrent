@@ -1,0 +1,27 @@
+I want to design an Android app that can replace, and does a lot more than what the Visible app for MECFS currently does.
+
+/research folder 
+
+create a subfolder /articles
+
+look at urls.txt and download all the full articles as PDF files.
+If they are not available on the source link, download them through https://sci-hub.se/
+
+Create more subfolders as needed :
+
+Compile all the research into individual markdown files per category (HRV / Sleep / Resting Heart Rate) specifically as they relate to MECFS. 
+
+Compile all the math and calculation information you find in the articles, specifically for how HRV is calculated, how Garmin might calculate the body battery score etc.
+
+
+## Goals 
+
+I want to create an Android app that will use all available data from the Garmin Vivoactive (see garmininfo.txt for more info).
+It should take averages over a few days, and then also the data for the past 24 hours (which weights heavier), and then give the user a recommendation for if they have a normal day, if they have a good day, if they should take it easy.
+Preferably calculate an amount of available energy points, which will drain during the day with everything they do, based on HRV changes / HR changes / stress level changes etc. 
+To start we can monitor the data for the past 30 minutes every 30 minutes, or maybe even live? NOt sure what battery drain that will cause.
+We can also hand off the data to a webserver to perform the (more complex) calculations and just send a reply back to the app.
+
+## Please make a plan for how you can research the best way to do this, using the information I have already collected for you, as well as possible other information. Also use your existing knowledge of this topic or spin off agents.
+
+I think for Android, kotlin is most often used??

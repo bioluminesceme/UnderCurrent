@@ -1,0 +1,60 @@
+then a v1 pipeline like this is reasonable:
+
+Baseline building (per user)
+Over 3–4 weeks:
+
+Nightly: HRV (RMSSD/lnRMSSD if available), resting HR
+
+Daily: Body Battery min/max, sleep score, stress minutes, steps, active calories
+
+Optional: user-rated fatigue/PEM 0–10
+→ Compute rolling means + SD → z-scores per metric.
+
+Feature engineering
+For each morning, build something like:
+
+z_HRV_night, z_RHR_morning
+
+z_SleepScore, z_BodyBatteryMorning
+
+z_StressYesterday, z_ActivityLoadYesterday
+
+Maybe 3-day rolling averages (to capture “load debt”).
+
+Score / rule-based model (phase 1)
+Start simple and transparent, e.g.:
+
+readiness_score =
+    w1 * (-z_HRV_night) +
+    w2 * z_RHR_morning +
+    w3 * (-z_SleepScore) +
+    w4 * (-z_BodyBatteryMorning) +
+    w5 * z_StressYesterday +
+    w6 * z_ActivityLoadYesterday
+
+
+Then map readiness_score → energy zones:
+
+Low score → “green” day (more energy budget)
+
+Medium → “amber”
+
+High → “red” (protective pacing, lower activity cap)
+
+Weights w1..w6 can initially be hand-tuned based on literature (e.g. prioritize HRV, RHR, sleep), then refined per user using their own PEM ratings.
+
+User-specific learning (phase 2)
+Once you have n=1 (you), later maybe n>1:
+
+Use logistic/ordinal regression or tree-based models to predict next-day PEM or fatigue from these features.
+
+This remains exploratory but is formal statistics, not vibes.
+
+Communication / UX
+Make it very explicit:
+
+“This app is experimental.”
+
+“It uses patterns described in HRV/autonomic/ME/CFS/Long COVID research, but has not been clinically validated.”
+
+“Use this as guidance, not medical advice.”

@@ -1,0 +1,114 @@
+I have a Garmin Vivoactive 6.
+
+
+# Garmin Vivoactive 6 – Data Types Collected
+
+## Heart & Autonomic Metrics
+- Heart rate (24/7)
+- Resting heart rate
+- Heart rate variability (HRV) – nightly
+- HRV Status (7-day rolling analysis)
+- Stress level (all-day)
+- Pulse Ox (SpO₂)
+- Respiration rate (breaths/min)
+
+## Sleep & Recovery
+- Sleep stages (light, deep, REM)
+- Sleep duration
+- Sleep score
+- Naps (auto-detected)
+- Sleep movements / restlessness
+- Morning report (sleep summary, HRV status, Body Battery, etc.)
+- Recovery time estimate
+- Sleep need estimate (sleep coach)
+
+## Energy & Quality-of-Life Metrics
+- Body Battery (energy estimate from HRV + sleep + stress + activity)
+- All-day stress
+- All-day activity load
+- Readiness-style coaching (Garmin’s recovery insights)
+
+## Activity & Fitness Tracking
+- Steps (daily)
+- Step goals (adaptive or fixed)
+- Distance (GPS or step-estimated)
+- Calories burned (active + resting)
+- Floors climbed (if supported; Vivoactive 6 **does not include a barometric altimeter**, so this is often absent)
+- Intensity minutes
+- VO₂ max (estimated)
+- Training effect (aerobic/anaerobic) when workouts support it
+- Training load (short-term & longer-term)
+- Fitness age (derived)
+
+## Sports / Workout Metrics (depends on activity)
+- GPS route + pace + speed
+- Running metrics (pace, cadence)
+- Cycling speed/cadence (with external sensors)
+- Heart-rate zones
+- Workout duration + HR curves
+- HIIT reps / intervals
+- Strength training reps (auto-detected)
+- Yoga metrics (breathwork + HR changes)
+- Other sport profiles (80+ activities)
+
+## Sensor Signals
+- Optical HR sensor data
+- Accelerometer data
+- Gyroscope data
+- GPS data (GNSS)
+- PulseOx sensor readings
+- Ambient light sensor
+
+## Menstrual & Health Tracking
+- Menstrual cycle logs
+- Pregnancy tracking logs
+- Symptom logging (fatigue, cramps, mood, etc.)
+
+## Smartwatch System Data (for completeness)
+- Step trends (weekly/monthly)
+- HR trends (weekly/monthly)
+- HRV trends
+- Sleep trends
+- Stress trends
+- Move alerts (inactivity notifications)
+- Battery usage patterns
+
+
+
+
+## What the current evidence supports:
+
+From the papers and docs we looked at (HRV + ME/CFS + Long COVID + wearables + pacing):
+
+Lower HRV ↔ higher fatigue / worse symptoms
+Multiple ME/CFS and Long COVID studies show that reduced HRV (esp. lower RMSSD / HF power, higher LF/HF) is associated with higher fatigue and autonomic dysfunction.
+→ Using overnight HRV and morning HRV deviation from baseline as a key input to “today’s energy budget” is scientifically defensible.
+
+Resting HR and HRV together track autonomic load
+Higher resting HR + lower HRV = “sympathetic dominance” / reduced recovery.
+→ A combined index like:
+
+HRV z-score (vs personal baseline)
+
+Resting HR z-score
+is reasonable as a core “physiological readiness” signal.
+
+Wearables can detect persistent post-infection changes
+Long COVID and post-viral studies using Garmin/other wearables show sustained changes in HR, HRV, sleep, and activity can mark people with ongoing symptoms vs controls.
+→ Using multi-day trends, not just single nights, is aligned with the literature.
+
+Pacing guided by heart-related metrics is feasible
+The heart-rate-monitor pacing studies in ME/CFS/Long COVID show people can use heart-based signals to stay below symptom-triggering thresholds and reduce PEM frequency.
+→ So an app that gives traffic-light-style guidance (green/amber/red day) is consistent with what’s already being tried.
+
+Garmin metrics (Body Battery, sleep score, stress, calories) are physiologically meaningful, even if proprietary
+Public info + validation studies (not perfect, but okay) support:
+
+Body Battery ≈ HRV + stress + activity + sleep → “recovery vs load” proxy
+
+Stress score ≈ short-term HRV-derived sympathetic activation
+
+Sleep score ≈ sleep duration + continuity + HR features
+
+Calories / steps ≈ activity load
+→ Combining these with HRV/resting HR to estimate “energy availability” is reasonable as a model, as long as you’re honest that Garmin’s exact formulas are black-box.

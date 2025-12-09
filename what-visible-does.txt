@@ -1,0 +1,9 @@
+It uses a standard time-domain HRV metric: RMSSD (Root Mean Square of Successive Differences between heartbeats), then applies a natural log transform (ln(RMSSD)) to normalize, and finally maps that to a 0–100 scale for user-friendliness. https://www.makevisible.com/hrv?utm_source=chatgpt.com
+
+
+Visible’s “morning stability score” — used for pacing guidance — is derived from comparing each day’s HRV (and resting heart rate) to a personal baseline computed over at least four days. 
+
+The design philosophy emphasizes long-term trends over absolute HRV values, acknowledging individual variation.
+
+Look at what this person did with their data from the visible app
+https://drmowinckels.io/blog/2025/visible/?utm_source=chatgpt.com

@@ -1,0 +1,90 @@
+DOWNLOAD LOG
+============================================================
+
+SUCCESSFUL:
+08_va.gov.pdf
+  https://www.va.gov/RAC-GWVI/docs/Recently_Published_Gulf_War_Illness_related_Research_Articles/RA2019/Oct22_Oct29_508compl.pdf#:~:text=Evidence%20of%20altered%20cardiac%20autonomic,PMID%3A%2031651868
+
+18_Nature_s41598-025-15208-0.pdf
+  https://www.nature.com/articles/s41598-025-15208-0?error=cookies_not_supported&code=ef0b0fde-2b10-44a6-9228-798901393de4#:~:text=,Published%3A%2011%20August%202025
+
+19_Nature_s41746-025-01456-x.pdf
+  https://www.nature.com/articles/s41746-025-01456-x?error=cookies_not_supported&code=dd1f33cc-3eb9-487d-863b-bb412af667e1#:~:text=,Published%3A%2019%20March%202025
+
+24_Nature_s41746-024-01238-x.pdf
+  https://www.nature.com/articles/s41746-024-01238-x?error=cookies_not_supported&code=5419fa54-9cdd-4404-a0f8-ea40b9e20e55#:~:text=,Published%3A%2013%20September%202024
+
+25_webthesis.biblio.polito.it.pdf
+  https://webthesis.biblio.polito.it/33033/1/tesi.pdf#:~:text=Academic%20Year%202023%2F2024%20Graduation%20Session,Massimo%20Violante%20Candidate%3A%20Dario%20Mendolicchio
+
+
+FAILED:
+01_PMID_40806985.pdf
+  https://pubmed.ncbi.nlm.nih.gov/40806985
+
+02_PMID_40981105.pdf
+  https://pubmed.ncbi.nlm.nih.gov/40981105
+
+03_researchgate.net.pdf
+  https://www.researchgate.net/publication/391894216_Hydrogen_water_and_heart_rate_variability_biofeedback_as_treatments_for_chronic_fatigue_syndrome_a_pilot_randomized_trial
+
+04_researchgate.net.pdf
+  https://www.researchgate.net/publication/390045237_Wearable_heart_rate_variability_monitoring_identifies_autonomic_dysfunction_and_thresholds_for_post-exertional_malaise_in_Long_COVID
+
+05_PMID_34071326.pdf
+  https://pubmed.ncbi.nlm.nih.gov/34071326/#:~:text=doi%3A%2010
+
+06_PMID_31957647.pdf
+  https://pubmed.ncbi.nlm.nih.gov/31957647/#:~:text=doi%3A%2010,Nov%2027
+
+07_PMID_31906988.pdf
+  https://pubmed.ncbi.nlm.nih.gov/31906988/#:~:text=doi%3A%2010.1186%2Fs12967
+
+09_PMID_29855991.pdf
+  https://pubmed.ncbi.nlm.nih.gov/29855991/#:~:text=Prolonged%2C%20disabling%20fatigue%20is%20the,CBFV%20would%20be%20reduced%20in
+
+10_posters.worldcongress2024.org.pdf
+  https://posters.worldcongress2024.org/poster/effects-of-recumbent-isometric-yoga-on-patients-with-fibromyalgia-comorbid-with-me-cfs/#:~:text=Effects%20of%20recumbent%20isometric%20yoga,blood%20biomarkers%20due%20to
+
+11_pmc.ncbi.nlm.nih.gov.pdf
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC9183184/#:~:text=,10
+
+12_PMID_29357332.pdf
+  https://pubmed.ncbi.nlm.nih.gov/29357332/#:~:text=Randomized%20Controlled%20Trial
+
+13_pmc.ncbi.nlm.nih.gov.pdf
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC7053003/#:~:text=,2%29%3A85%E2%80%93
+
+14_PMID_23838093.pdf
+  https://pubmed.ncbi.nlm.nih.gov/23838093/#:~:text=Heart%20rate%20variability%20in%20patients,fatigue%20syndrome%3A%20a%20systematic%20review
+
+15_PMID_20502886.pdf
+  https://pubmed.ncbi.nlm.nih.gov/20502886/#:~:text=Reduced%20heart%20rate%20variability%20predicts,study%20of%20chronic%20fatigue%20syndrome
+
+16_PMID_17851136.pdf
+  https://pubmed.ncbi.nlm.nih.gov/17851136/#:~:text=Higher%20heart%20rate%20and%20reduced,based%20study
+
+17_PMID_9430800.pdf
+  https://pubmed.ncbi.nlm.nih.gov/9430800/#:~:text=Comparison%20of%20heart%20rate%20variability,chronic%20fatigue%20syndrome%20and%20controls
+
+20_s4me.info.pdf
+  https://www.s4me.info/threads/pacing-with-a-heart-rate-monitor-for-people-with-me-cfs-and-lc-a-feasibility-study-2025-clague-baker-davenport-bull-et-al.46534/#:~:text=Pacing%20with%20a%20heart%20rate,Baker%2C%20Davenport%2C%20Bull%20et%20al
+
+21_arXiv_2404.04345.pdf
+  https://arxiv.org/html/2404.04345v1#:~:text=arXiv%3A2404.04345v1%20%5Bq
+
+22_PMID_40190996.pdf
+  https://pubmed.ncbi.nlm.nih.gov/40190996/#:~:text=.%202024%20Dec%203%3B36%282%29%3A99
+
+23_s4me.info.pdf
+  https://www.s4me.info/threads/the-unanticipated-use-of-fitness-tracking-technologies-during-post-covid-syndrome-2024-homewood.39202/#:~:text=https%3A%2F%2Fdl
+
+26_PMID_36938766.pdf
+  https://pubmed.ncbi.nlm.nih.gov/36938766/#:~:text=.%202023%3B74%284%29%3A1225
+
+27_PMID_33168001.pdf
+  https://pubmed.ncbi.nlm.nih.gov/33168001/#:~:text=
+
+28_PMID_32601613.pdf
+  https://pubmed.ncbi.nlm.nih.gov/32601613/#:~:text=Review%20of%20Validity%20and%20Reliability,of%20Garmin%20Activity%20Trackers
+

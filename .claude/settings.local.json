@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(cat:*)",
+      "Bash(python research/download_articles.py:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

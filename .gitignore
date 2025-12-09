@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# uv
+.uv/
+uv.lock
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+cfs_hrv.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Android
+android/.gradle/
+android/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/.cxx/
+android/app/build/
+android/captures/
+android/.externalNativeBuild/
+
+# Research PDFs (optional - uncomment to exclude)
+# research/pdfs/
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
