@@ -18,7 +18,7 @@ import kotlinx.serialization.json.Json
  * Communicates with FastAPI backend running on port 4777.
  */
 class CfsHrvApiClient(
-    private val baseUrl: String = "http://10.0.2.2:4777/api" // Android emulator localhost
+    private val baseUrl: String = "http://192.168.2.9:4777/api" // Local network IP
 ) {
     companion object {
         private const val TAG = "CfsHrvApiClient"
