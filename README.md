@@ -247,7 +247,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 - ✅ **Free to distribute** - Share with others
 - ✅ **Can be used commercially** - But you must open-source all modifications
 - ⚠️ **Network use = distribution** - If you run this as a service, you must share your code
-- 💼 **Commercial licenses** - Contact for proprietary/closed-source use, I might happily at some point sell out so someone else can deal with HIPAA, as long as the self-hosted version will always remain freely available and open source.
+- 💼 **Commercial licenses** - Contact for proprietary/closed-source use, I might happily sell out at some point so that someone else can deal with HIPAA, but only if the self-hosted version will forever remain freely available and open source.
 
 ## Contributing
 
